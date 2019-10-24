@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import { FaGithubAlt, FaPlus, FaSpinner} from 'react-icons/fa'
 
-import {Container, Form, SubmitButton} from './styles'
+import {Container, Form, SubmitButton, List} from './styles'
 
 import api from '../../services/api'
 
@@ -13,11 +13,31 @@ export default class Main extends Component{
     loading: false,
   }
 
+
+
+
+  //Salvar os dados do localStorage
+  componentDidUpdate(_, prevState){
+    const {repositories} = this.state;
+
+    if(prevState.repositories !== repositories){
+      localStorage.setItem('repositories', JSON.stringify(repositories))
+    }
+  }
+
+  //Carregar os dados do localStorage
+  componentDidMount(){
+    const repositories = localStorage.getItem('repositories');
+
+    if(repositories){
+      this.setState({repositories: JSON.parse(repositories)})
+    }
+  }
+
   handleInputChange= e =>{
     this.setState({newRepo: e.target.value})
   }
-
-  handleSubmit =async e =>{
+  handleSubmit = async e =>{
     e.preventDefault();
     this.setState({loading: true})
 
@@ -35,7 +55,7 @@ export default class Main extends Component{
     })
   };
   render(){
-    const {newRepo, loading} = this.state;
+    const {newRepo, loading, repositories} = this.state;
     return (
       <Container>
         <h1>
@@ -51,7 +71,7 @@ export default class Main extends Component{
             onChange={this.handleInputChange}
             />
 
-          <SubmitButton loading={loading}>
+          <SubmitButton loading={loading ? 1 : 0}>
 
             { loading ?
             (<FaSpinner color= "#fff" size={14}/> //se o loading for verdadeiro, mostrar esse botao
@@ -61,6 +81,15 @@ export default class Main extends Component{
 
           </SubmitButton>
           </Form>
+
+          <List>
+                {repositories.map(repositoriy=>(
+                  <li key={repositoriy.name}>
+                    <span>{repositoriy.name}</span>
+                    <a href=''>Detalhes</a>
+                  </li>
+                ))}
+          </List>
       </Container>
     )
 
