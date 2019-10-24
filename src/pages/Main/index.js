@@ -50,7 +50,7 @@ export default class Main extends Component{
             onChange={this.handleInputChange}
             />
 
-          <SubmitButton liading={loading}>
+          <SubmitButton loading={loading}>
 
             { loading ?
             (<FaSpinner color= "#fff" size={14}/> //se o loading for verdadeiro, mostrar esse botao
