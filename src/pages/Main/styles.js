@@ -13,9 +13,9 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
-  svg{
-    margin-right:10px;
+    svg{
+      margin-right:10px;
+    }
   }
 `;
 
@@ -58,7 +58,7 @@ export const SubmitButton = styled.button.attrs(props=>({
   align-items: center;
   justify-content: center;
 
-  &[dislabled] {
+  &[disabled] {
     cursor: not-allowed;
     opacity: 0.6;
   }

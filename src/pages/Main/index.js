@@ -31,8 +31,9 @@ export default class Main extends Component{
     this.setState({
       repositories: [...repositories,data],
       newRepo: '',
-      loading: false,})
-  }
+      loading: false,
+    })
+  };
   render(){
     const {newRepo, loading} = this.state;
     return (
